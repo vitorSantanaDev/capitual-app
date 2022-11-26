@@ -1,7 +1,11 @@
 import { ListItemIcon, Divider } from '@mui/material'
 import { styled } from '@mui/system'
 
-export const LateralMenuComponentWrapper = styled('div')``
+export const LateralMenuComponentWrapper = styled('div')`
+	.MuiPaper-root {
+		top: 84px;
+	}
+`
 
 export const ListItemIconCustom = styled(ListItemIcon)(() => ({
 	minWidth: 0

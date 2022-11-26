@@ -26,7 +26,8 @@ const LateralMenuComponent: React.FC<{ children: React.ReactNode }> = ({
 	const theme = M.useTheme()
 	const smallDown = M.useMediaQuery(theme.breakpoints.down('sm'))
 
-	const { openMenu } = React.useContext(LateralMenuProvider)
+	const { openMenu, toggleLateralMenuOpen } =
+		React.useContext(LateralMenuProvider)
 
 	const listMenuItemsBeforeDivider: IMenuItem[] = React.useMemo(() => {
 		return [
@@ -163,7 +164,11 @@ const LateralMenuComponent: React.FC<{ children: React.ReactNode }> = ({
 
 	return (
 		<S.LateralMenuComponentWrapper>
-			<M.Drawer open={openMenu} variant={smallDown ? 'temporary' : 'permanent'}>
+			<M.Drawer
+				open={openMenu}
+				onClose={toggleLateralMenuOpen}
+				variant={smallDown ? 'temporary' : 'permanent'}
+			>
 				<MS.Box
 					height="100%"
 					display="flex"
