@@ -1,5 +1,6 @@
 import * as React from 'react'
 import * as M from '@mui/material'
+import * as MS from '@mui/system'
 import * as S from './styled'
 
 import { LateralMenuProvider } from '../../contexts'
@@ -16,25 +17,29 @@ const HeaderComponent: React.FC = () => {
 	const { toggleLateralMenuOpen } = React.useContext(LateralMenuProvider)
 
 	return (
-		<S.HeaderWrapper>
-			{smallDown ? (
-				<S.MenuButton onClick={toggleLateralMenuOpen}>
-					<MenuIcon />
-				</S.MenuButton>
-			) : (
-				<S.HeaderContentLeft>
-					<Logo />
-					<S.SearchInputWrapper>
-						<SearchIcon />
-						<S.SearchInput placeholder="Search" />
-					</S.SearchInputWrapper>
-				</S.HeaderContentLeft>
-			)}
-			<S.HeaderRight>
-				<BellIcon />
-				<M.Avatar alt="User" src={PersonPhoto} />
-			</S.HeaderRight>
-		</S.HeaderWrapper>
+		<S.AppBarCustom>
+			<S.ToolBarCustom>
+				{smallDown ? (
+					<MS.Box alignItems="center">
+						<M.IconButton onClick={toggleLateralMenuOpen}>
+							<MenuIcon />
+						</M.IconButton>
+					</MS.Box>
+				) : (
+					<MS.Box display="flex" alignItems="center">
+						<Logo />
+						<S.SearchInputWrapper>
+							<SearchIcon />
+							<S.SearchInput placeholder="Search" />
+						</S.SearchInputWrapper>
+					</MS.Box>
+				)}
+				<MS.Box display="flex" alignItems="center">
+					<BellIcon />
+					<M.Avatar style={{ marginLeft: 12 }} alt="User" src={PersonPhoto} />
+				</MS.Box>
+			</S.ToolBarCustom>
+		</S.AppBarCustom>
 	)
 }
 
