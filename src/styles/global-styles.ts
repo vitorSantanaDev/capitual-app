@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
-import { themeColors, themeFonts } from './theme'
+import { GlobalTheme } from './theme/global-theme'
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -7,13 +7,16 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
   }
+
   html {
     font-size: 62.5%;
   }
+
   body {
-    background-color: ${themeColors.GRAY_LIGHT};
-    font-family: ${themeFonts.DEFAULT};
+		font-family: ${GlobalTheme.typography.fontFamily};
+		background-color: ${GlobalTheme.palette.background.default};
   }
+
   html, body {
     height: 100%;
   }
