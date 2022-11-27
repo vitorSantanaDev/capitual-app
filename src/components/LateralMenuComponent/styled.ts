@@ -3,7 +3,7 @@ import { styled } from '@mui/system'
 
 export const LateralMenuComponentWrapper = styled('div')`
 	.MuiPaper-root {
-		top: 84px;
+		top: 64.8px;
 	}
 `
 
