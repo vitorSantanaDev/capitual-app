@@ -1,6 +1,7 @@
-export { default as LateralMenuComponent } from './LateralMenuComponent'
 export { default as HeaderComponent } from './HeaderComponent'
 export { default as FooterComponent } from './FooterComponent'
 export { default as LatestCustomers } from './LatestCustomers'
 export { default as TopProductsList } from './TopProductsList'
+export { default as TableTransactions } from './TableTransactions'
+export { default as LateralMenuComponent } from './LateralMenuComponent'
 export { default as ChipStatusTransaction } from './ChipStatusTransaction'
