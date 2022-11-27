@@ -17,7 +17,8 @@ import ChipStatusTransaction from '../ChipStatusTransaction'
 import { ChipStatusTransactionEnum } from '../ChipStatusTransaction/types'
 
 const TableTransactions: React.FC<ITableTransactionsProps> = ({
-	transactions
+	transactions,
+	isFetchingTransactions
 }) => {
 	const theme = M.useTheme()
 	const [page, setPage] = React.useState(0)
@@ -136,6 +137,7 @@ const TableTransactions: React.FC<ITableTransactionsProps> = ({
 			sx={{
 				padding: 3,
 				borderRadius: 4,
+				minHeight: 473,
 				backgroundColor: theme.palette.background.paper
 			}}
 		>
@@ -153,75 +155,88 @@ const TableTransactions: React.FC<ITableTransactionsProps> = ({
 			>
 				This is a list of latest transactions.
 			</M.Typography>
-			<M.Paper sx={{ width: '100%', overflow: 'hidden', boxShadow: 'none' }}>
-				<M.TableContainer
-					component={M.Paper}
-					variant="outlined"
-					sx={{ maxHeight: 375, border: 'none' }}
-				>
-					<M.Table stickyHeader>
-						<M.TableHead>
-							<M.TableRow>
-								{columns.map((column) => (
-									<M.TableCell
-										sx={{
-											fontSize: '1.2rem',
-											fontWeight: '600',
-											color: '#6B7280'
-										}}
-										key={column.id}
-									>
-										{column.label}
-									</M.TableCell>
-								))}
-							</M.TableRow>
-						</M.TableHead>
-						<M.TableBody>
-							{rows
-								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-								.map((row, index) => {
-									return (
-										<S.TableRowCustom
-											sx={{ borderRadius: 16 }}
-											key={`${row.status}-${index}`}
-										>
-											{columns.map((column) => {
-												const value = row[column.id]
-												return (
-													<M.TableCell
-														sx={{ borderColor: '#F9FAFB' }}
-														key={column.id}
-													>
-														{value}
-													</M.TableCell>
-												)
-											})}
-										</S.TableRowCustom>
-									)
-								})}
-						</M.TableBody>
-					</M.Table>
-				</M.TableContainer>
+			{isFetchingTransactions ? (
 				<MS.Box
+					flex={1}
+					height={473}
+					display="flex"
 					component="div"
-					sx={{
-						marginTop: 2,
-						width: '100%',
-						display: 'flex',
-						justifyContent: 'flex-end'
-					}}
+					alignItems="center"
+					justifyContent="center"
 				>
-					<S.TablePaginationCustom
-						page={page}
-						variant="footer"
-						count={rows.length}
-						rowsPerPage={rowsPerPage}
-						onPageChange={handleChangePage}
-						rowsPerPageOptions={[10, 25, 100]}
-						onRowsPerPageChange={handleChangeRowsPerPage}
-					/>
+					<M.CircularProgress color="primary" />
 				</MS.Box>
-			</M.Paper>
+			) : (
+				<React.Fragment>
+					<M.TableContainer
+						component={M.Paper}
+						variant="outlined"
+						sx={{ maxHeight: 375, border: 'none' }}
+					>
+						<M.Table stickyHeader>
+							<M.TableHead>
+								<M.TableRow>
+									{columns.map((column) => (
+										<M.TableCell
+											sx={{
+												fontSize: '1.2rem',
+												fontWeight: '600',
+												color: '#6B7280'
+											}}
+											key={column.id}
+										>
+											{column.label}
+										</M.TableCell>
+									))}
+								</M.TableRow>
+							</M.TableHead>
+							<M.TableBody>
+								{rows
+									.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+									.map((row, index) => {
+										return (
+											<S.TableRowCustom
+												sx={{ borderRadius: 16 }}
+												key={`${row.status}-${index}`}
+											>
+												{columns.map((column) => {
+													const value = row[column.id]
+													return (
+														<M.TableCell
+															sx={{ borderColor: '#F9FAFB' }}
+															key={column.id}
+														>
+															{value}
+														</M.TableCell>
+													)
+												})}
+											</S.TableRowCustom>
+										)
+									})}
+							</M.TableBody>
+						</M.Table>
+					</M.TableContainer>
+					<MS.Box
+						component="div"
+						sx={{
+							marginTop: 2,
+							width: '100%',
+							display: 'flex',
+							justifyContent: 'flex-end'
+						}}
+					>
+						<S.TablePaginationCustom
+							page={page}
+							variant="footer"
+							count={rows.length}
+							rowsPerPage={rowsPerPage}
+							onPageChange={handleChangePage}
+							rowsPerPageOptions={[10, 25, 100]}
+							onRowsPerPageChange={handleChangeRowsPerPage}
+						/>
+					</MS.Box>
+				</React.Fragment>
+			)}
 		</M.Container>
 	)
 }
