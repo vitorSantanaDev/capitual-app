@@ -13,6 +13,14 @@ const LatestCustomers: React.FC<ILatestCustomersProps> = ({
 
 	return (
 		<S.ListCustom>
+			<M.Typography
+				fontSize="2rem"
+				fontWeight={500}
+				marginBottom={theme.spacing(1.1)}
+				color={theme.palette.secondary.main}
+			>
+				Latest Customers
+			</M.Typography>
 			{isFetchingLatestCustomers ? (
 				<MS.Box
 					flex={1}
@@ -43,9 +51,18 @@ const LatestCustomers: React.FC<ILatestCustomersProps> = ({
 									</M.ListItemAvatar>
 									<M.ListItemText
 										primary={item.name}
+										primaryTypographyProps={{
+											fontSize: '1.6rem',
+											fontWeight: 500,
+											color: theme.palette.secondary.main
+										}}
 										secondary={
 											<React.Fragment>
-												<M.Typography component="span">
+												<M.Typography
+													component="span"
+													fontSize="1.2rem"
+													color={'#6B7280'}
+												>
 													{item.email}
 												</M.Typography>
 											</React.Fragment>
@@ -54,13 +71,11 @@ const LatestCustomers: React.FC<ILatestCustomersProps> = ({
 								</MS.Box>
 								<MS.Box>
 									<M.ListItemText
-										primary={Number(item.lastPurchaseValue).toLocaleString(
-											'us-eu',
-											{
-												style: 'currency',
-												currency: 'USD'
-											}
-										)}
+										primaryTypographyProps={{
+											fontSize: '1.6rem',
+											fontWeight: 500
+										}}
+										primary={`$${item.lastPurchaseValue}`}
 									/>
 								</MS.Box>
 							</MS.Box>

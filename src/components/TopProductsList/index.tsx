@@ -13,7 +13,12 @@ const LatestCustomers: React.FC<ITopProductsListProps> = ({
 
 	return (
 		<S.ListCustom>
-			<M.Typography fontSize="2rem" fontWeight={500}>
+			<M.Typography
+				fontSize="2rem"
+				fontWeight={500}
+				color={theme.palette.secondary.main}
+				marginBottom={theme.spacing(1.1)}
+			>
 				Top products
 			</M.Typography>
 			{isFetchingTopProducts ? (
@@ -45,7 +50,8 @@ const LatestCustomers: React.FC<ITopProductsListProps> = ({
 										primary={item.name}
 										primaryTypographyProps={{
 											fontSize: '1.6rem',
-											fontWeight: 500
+											fontWeight: 500,
+											color: theme.palette.secondary.main
 										}}
 										secondary={
 											<React.Fragment>
