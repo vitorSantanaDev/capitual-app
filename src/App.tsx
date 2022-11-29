@@ -1,14 +1,20 @@
 import * as React from 'react'
-import * as M from '@mui/material'
-import * as S from './styled'
+
+import { ThemeProvider } from '@mui/material'
+
+import { HomeTemplate } from './templates'
+import { HeaderComponent, LateralMenuComponent } from './components'
+
+import { GlobalTheme } from './styles/theme/global-theme'
 
 const App: React.FC = () => {
 	return (
-		<S.AppWrapper>
-			<M.Button className="button" variant="contained">
-				Hello World
-			</M.Button>
-		</S.AppWrapper>
+		<ThemeProvider theme={GlobalTheme}>
+			<HeaderComponent />
+			<LateralMenuComponent>
+				<HomeTemplate />
+			</LateralMenuComponent>
+		</ThemeProvider>
 	)
 }
 
