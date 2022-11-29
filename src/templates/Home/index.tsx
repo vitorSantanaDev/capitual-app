@@ -111,7 +111,10 @@ const HomeTemplate: React.FC = () => {
 				alignItems="center"
 				spacing={{ xs: 4, md: 4 }}
 				columns={{ xs: 4, sm: 8, md: 12 }}
-				sx={{ padding: theme.spacing(4) }}
+				sx={{
+					paddingTop: smallDown ? theme.spacing(6) : theme.spacing(4),
+					paddingBottom: smallDown ? theme.spacing(6) : theme.spacing(4)
+				}}
 			>
 				<M.Grid item xs={16}>
 					<SalesGraphComponent
