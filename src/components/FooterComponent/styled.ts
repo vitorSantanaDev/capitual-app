@@ -9,7 +9,6 @@ export const FooterWrapper = styled('footer')(({ theme }) => ({
 }))
 
 export const FooterContent = styled('p')(({ theme }) => ({
-	fontSize: 16,
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center',
