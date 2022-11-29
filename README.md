@@ -23,7 +23,7 @@
 ## Dashboard Capitual
 
 <br>
- 🚧 Project under construction
+ 📈 This project is a simple Dashboard developed with React.JS and Material UI
 <br>
 <br>
 
