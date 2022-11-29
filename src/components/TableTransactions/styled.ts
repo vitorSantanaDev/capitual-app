@@ -1,4 +1,4 @@
-import { TablePagination, TableRow } from '@mui/material'
+import { TableContainer, TablePagination, TableRow } from '@mui/material'
 import { styled } from '@mui/system'
 
 export const TablePaginationCustom = styled(TablePagination)`
@@ -35,5 +35,22 @@ export const TableRowCustom = styled(TableRow)(() => ({
 	},
 	'&:last-child td, &:last-child th': {
 		border: 0
+	}
+}))
+
+export const TableContainerCustom = styled(TableContainer)(({ theme }) => ({
+	maxHeight: 375,
+	border: 'none',
+	'&::-webkit-scrollbar': {
+		width: 5
+	},
+	'&::-webkit-scrollbar-track': {
+		background: theme.palette.background.paper,
+		borderTopRightRadius: 16,
+		borderBottomRightRadius: 16
+	},
+	'&::-webkit-scrollbar-thumb': {
+		backgroundColor: theme.palette.primary.main,
+		borderRadius: 16
 	}
 }))

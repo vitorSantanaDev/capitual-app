@@ -21,8 +21,14 @@ const TableTransactions: React.FC<ITableTransactionsProps> = ({
 	isFetchingTransactions
 }) => {
 	const theme = M.useTheme()
+	const smallDown = M.useMediaQuery(theme.breakpoints.down('sm'))
 	const [page, setPage] = React.useState(0)
 	const [rowsPerPage, setRowsPerPage] = React.useState(10)
+
+	const [
+		columnsThatShouldBeShownInTheTableAtThisTime,
+		setColumnsThatShouldBeShownInTheTableAtThisTime
+	] = React.useState<IColumnData[]>([])
 
 	const renderPaymentMadeByElement = (name: string) => {
 		return (
@@ -87,6 +93,10 @@ const TableTransactions: React.FC<ITableTransactionsProps> = ({
 		]
 	}, [])
 
+	const columnsSmallDevice: IColumnData[] = columns.filter(
+		(item) => item.id !== 'amount' && item.id !== 'status'
+	)
+
 	const createTableRow = ({
 		amount,
 		status,
@@ -132,18 +142,35 @@ const TableTransactions: React.FC<ITableTransactionsProps> = ({
 		setPage(0)
 	}
 
+	const settingColumnsThatShouldBeShownInTheTable = () => {
+		if (smallDown) {
+			setColumnsThatShouldBeShownInTheTableAtThisTime(columnsSmallDevice)
+		} else {
+			setColumnsThatShouldBeShownInTheTableAtThisTime(columns)
+		}
+	}
+
+	React.useEffect(settingColumnsThatShouldBeShownInTheTable, [
+		smallDown,
+		columns,
+		columnsSmallDevice
+	])
+
 	return (
 		<M.Container
 			sx={{
+				width: '100%',
 				padding: 3,
 				borderRadius: 4,
 				minHeight: 473,
-				backgroundColor: theme.palette.background.paper
+				backgroundColor: theme.palette.background.paper,
+				boxShadow:
+					'0px 1px 2px rgba(0, 0, 0, 0.06), 0px 1px 3px rgba(0, 0, 0, 0.1)'
 			}}
 		>
 			<M.Typography
 				fontSize="2rem"
-				fontWeight={500}
+				fontWeight={600}
 				color={theme.palette.secondary.main}
 			>
 				Transactions
@@ -168,26 +195,24 @@ const TableTransactions: React.FC<ITableTransactionsProps> = ({
 				</MS.Box>
 			) : (
 				<React.Fragment>
-					<M.TableContainer
-						component={M.Paper}
-						variant="outlined"
-						sx={{ maxHeight: 375, border: 'none' }}
-					>
+					<S.TableContainerCustom>
 						<M.Table stickyHeader>
 							<M.TableHead>
 								<M.TableRow>
-									{columns.map((column) => (
-										<M.TableCell
-											sx={{
-												fontSize: '1.2rem',
-												fontWeight: '600',
-												color: '#6B7280'
-											}}
-											key={column.id}
-										>
-											{column.label}
-										</M.TableCell>
-									))}
+									{columnsThatShouldBeShownInTheTableAtThisTime.map(
+										(column) => (
+											<M.TableCell
+												sx={{
+													fontSize: '1.2rem',
+													fontWeight: '600',
+													color: '#6B7280'
+												}}
+												key={column.id}
+											>
+												{column.label}
+											</M.TableCell>
+										)
+									)}
 								</M.TableRow>
 							</M.TableHead>
 							<M.TableBody>
@@ -199,32 +224,30 @@ const TableTransactions: React.FC<ITableTransactionsProps> = ({
 												sx={{ borderRadius: 16 }}
 												key={`${row.status}-${index}`}
 											>
-												{columns.map((column) => {
-													const value = row[column.id]
-													return (
-														<M.TableCell
-															sx={{ borderColor: '#F9FAFB' }}
-															key={column.id}
-														>
-															{value}
-														</M.TableCell>
-													)
-												})}
+												{columnsThatShouldBeShownInTheTableAtThisTime.map(
+													(column) => {
+														const value = row[column.id]
+														return (
+															<M.TableCell
+																sx={{ borderColor: '#F9FAFB' }}
+																key={column.id}
+															>
+																{value}
+															</M.TableCell>
+														)
+													}
+												)}
 											</S.TableRowCustom>
 										)
 									})}
 							</M.TableBody>
 						</M.Table>
-					</M.TableContainer>
-					<MS.Box
-						component="div"
-						sx={{
-							marginTop: 2,
-							width: '100%',
-							display: 'flex',
-							justifyContent: 'flex-end'
-						}}
-					>
+					</S.TableContainerCustom>
+				</React.Fragment>
+			)}
+			<M.Table>
+				<M.TableBody>
+					<M.TableRow>
 						<S.TablePaginationCustom
 							page={page}
 							variant="footer"
@@ -234,9 +257,9 @@ const TableTransactions: React.FC<ITableTransactionsProps> = ({
 							rowsPerPageOptions={[10, 25, 100]}
 							onRowsPerPageChange={handleChangeRowsPerPage}
 						/>
-					</MS.Box>
-				</React.Fragment>
-			)}
+					</M.TableRow>
+				</M.TableBody>
+			</M.Table>
 		</M.Container>
 	)
 }

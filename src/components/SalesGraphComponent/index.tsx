@@ -22,6 +22,7 @@ const SalesGraphComponent: React.FC<ISalesGraphComponentProps> = ({
 	salesData
 }) => {
 	const theme = M.useTheme()
+	const smallDown = M.useMediaQuery(theme.breakpoints.down('sm'))
 
 	const salesSurvey = React.useMemo(() => {
 		const salesSortedByDate = salesData.sort(
@@ -29,7 +30,11 @@ const SalesGraphComponent: React.FC<ISalesGraphComponentProps> = ({
 				new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
 		)
 
-		return salesSortedByDate.map((sale) => {
+		const currentMonthSales = salesSortedByDate.filter(
+			(sale) => new Date().getMonth() === new Date(sale.createdAt).getMonth()
+		)
+
+		return currentMonthSales.map((sale) => {
 			return {
 				month: String(
 					format(new Date(sale.createdAt), 'dd MMMM yyyy', {
@@ -44,20 +49,17 @@ const SalesGraphComponent: React.FC<ISalesGraphComponentProps> = ({
 	return (
 		<M.Container
 			sx={{
+				maxWidth: smallDown ? 380.33 : '100%',
 				padding: 4,
 				borderRadius: 4,
 				minHeight: 473,
+				marginTop: theme.spacing(6),
 				boxShadow:
-					'box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.06), 0px 1px 3px rgba(0, 0, 0, 0.1);',
+					'0px 1px 2px rgba(0, 0, 0, 0.06), 0px 1px 3px rgba(0, 0, 0, 0.1)',
 				backgroundColor: theme.palette.background.paper
 			}}
 		>
-			<ResponsiveContainer
-				width="100%"
-				height="100%"
-				minWidth="100%"
-				minHeight="100%"
-			>
+			<ResponsiveContainer width="100%" height="100%">
 				<React.Fragment>
 					<MS.Box
 						component="div"
@@ -68,7 +70,7 @@ const SalesGraphComponent: React.FC<ISalesGraphComponentProps> = ({
 						<M.Typography
 							variant="h5"
 							fontSize="2rem"
-							fontWeight={500}
+							fontWeight={600}
 							color={theme.palette.secondary.main}
 						>
 							Sales
@@ -77,7 +79,12 @@ const SalesGraphComponent: React.FC<ISalesGraphComponentProps> = ({
 							<ExclamationIcon />
 						</M.IconButton>
 					</MS.Box>
-					<LineChart width={1030} height={430} data={salesSurvey}>
+					<LineChart
+						maxBarSize={20}
+						width={smallDown ? 320 : 1030}
+						height={430}
+						data={salesSurvey}
+					>
 						<XAxis
 							dataKey="month"
 							tick={{ color: '#6B7280', fontSize: '1.4rem', fontWeight: '600' }}
@@ -86,7 +93,12 @@ const SalesGraphComponent: React.FC<ISalesGraphComponentProps> = ({
 							padding={{ top: 20, bottom: 20 }}
 							tick={{ color: '#6B7280', fontSize: '1.4rem', fontWeight: '600' }}
 						/>
-						<Tooltip />
+						<Tooltip
+							labelStyle={{
+								color: '#6B7280',
+								fontSize: '1.6rem'
+							}}
+						/>
 						<Line
 							type="monotone"
 							strokeWidth={3}

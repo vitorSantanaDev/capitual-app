@@ -15,7 +15,7 @@ const LatestCustomers: React.FC<ITopProductsListProps> = ({
 		<S.ListCustom>
 			<M.Typography
 				fontSize="2rem"
-				fontWeight={500}
+				fontWeight={600}
 				color={theme.palette.secondary.main}
 				marginBottom={theme.spacing(1.1)}
 			>
@@ -50,7 +50,7 @@ const LatestCustomers: React.FC<ITopProductsListProps> = ({
 										primary={item.name}
 										primaryTypographyProps={{
 											fontSize: '1.6rem',
-											fontWeight: 500,
+											fontWeight: 600,
 											color: theme.palette.secondary.main
 										}}
 										secondary={
@@ -70,12 +70,16 @@ const LatestCustomers: React.FC<ITopProductsListProps> = ({
 								</MS.Box>
 								<MS.Box display="flex" alignItems="center">
 									<M.ListItemText
-										primaryTypographyProps={{ fontSize: '1.6rem' }}
-										primary={item.totalSales}
+										primaryTypographyProps={{
+											fontSize: '1.6rem',
+											fontWeight: 600
+										}}
+										primary={Math.round(Number(item.totalSales))}
 									/>
 									<M.Typography
 										marginLeft={theme.spacing(1)}
 										component="span"
+										fontWeight={600}
 										fontSize="1.6rem"
 										color={'#4B5563'}
 									>
@@ -83,7 +87,7 @@ const LatestCustomers: React.FC<ITopProductsListProps> = ({
 									</M.Typography>
 								</MS.Box>
 							</MS.Box>
-							<M.Divider variant="fullWidth" component="li" />
+							<M.Divider variant="fullWidth" component="div" />
 						</S.ListItemCustom>
 					))}
 				</React.Fragment>

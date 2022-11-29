@@ -19,6 +19,7 @@ import {
 
 const HomeTemplate: React.FC = () => {
 	const theme = M.useTheme()
+	const smallDown = M.useMediaQuery(theme.breakpoints.down('sm'))
 
 	const [isFetchingLatestCustomers, setIsFetchingLatestCustomers] =
 		React.useState(false)
@@ -98,42 +99,50 @@ const HomeTemplate: React.FC = () => {
 	React.useEffect(getTransactions, [])
 
 	return (
-		<M.Grid
-			container
-			justifyContent="center"
-			alignItems="center"
-			spacing={4}
-			sx={{ marginTop: theme.spacing(6), padding: theme.spacing(2) }}
+		<M.Container
+			sx={{
+				width: '100%',
+				maxWidth: 1317
+			}}
 		>
-			<M.Grid item xs={16}>
-				<SalesGraphComponent
-					salesData={sales}
-					isFetchingSales={isFetchingSales}
-				/>
-			</M.Grid>
-			<M.Grid item xs={4}>
-				<LatestCustomers
-					latestCustomers={latestCustomers}
-					isFetchingLatestCustomers={isFetchingLatestCustomers}
-				/>
-			</M.Grid>
+			<M.Grid
+				container
+				justifyContent="center"
+				alignItems="center"
+				spacing={{ xs: 4, md: 4 }}
+				columns={{ xs: 4, sm: 8, md: 12 }}
+				sx={{ padding: theme.spacing(4) }}
+			>
+				<M.Grid item xs={16}>
+					<SalesGraphComponent
+						salesData={sales}
+						isFetchingSales={isFetchingSales}
+					/>
+				</M.Grid>
+				<M.Grid item xs={4}>
+					<LatestCustomers
+						latestCustomers={latestCustomers}
+						isFetchingLatestCustomers={isFetchingLatestCustomers}
+					/>
+				</M.Grid>
 
-			<M.Grid item xs={8}>
-				<TopProductsList
-					topProductsList={topProducts}
-					isFetchingTopProducts={isFetchingTopProducts}
-				/>
+				<M.Grid item xs={8}>
+					<TopProductsList
+						topProductsList={topProducts}
+						isFetchingTopProducts={isFetchingTopProducts}
+					/>
+				</M.Grid>
+				<M.Grid item xs={16}>
+					<TableTransactions
+						transactions={transactions}
+						isFetchingTransactions={isFetchingTransactions}
+					/>
+				</M.Grid>
+				<M.Grid item xs={16}>
+					<FooterComponent />
+				</M.Grid>
 			</M.Grid>
-			<M.Grid item xs={16}>
-				<TableTransactions
-					transactions={transactions}
-					isFetchingTransactions={isFetchingTransactions}
-				/>
-			</M.Grid>
-			<M.Grid item xs={16}>
-				<FooterComponent />
-			</M.Grid>
-		</M.Grid>
+		</M.Container>
 	)
 }
 

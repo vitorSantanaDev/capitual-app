@@ -14,8 +14,9 @@ const LatestCustomers: React.FC<ILatestCustomersProps> = ({
 	return (
 		<S.ListCustom>
 			<M.Typography
+				variant="h5"
 				fontSize="2rem"
-				fontWeight={500}
+				fontWeight={600}
 				marginBottom={theme.spacing(1.1)}
 				color={theme.palette.secondary.main}
 			>
@@ -26,6 +27,7 @@ const LatestCustomers: React.FC<ILatestCustomersProps> = ({
 					flex={1}
 					height={350}
 					display="flex"
+					component="div"
 					alignItems="center"
 					justifyContent="center"
 				>
@@ -36,12 +38,15 @@ const LatestCustomers: React.FC<ILatestCustomersProps> = ({
 					{latestCustomers.map((item) => (
 						<S.ListItemCustom key={item.id}>
 							<MS.Box
+								width="100%"
+								component="div"
 								display="flex"
 								alignItems="center"
 								justifyContent="space-between"
 								marginBottom={theme.spacing(1.1)}
 							>
 								<MS.Box
+									component="div"
 									display="flex"
 									alignItems="center"
 									justifyContent="space-between"
@@ -53,14 +58,16 @@ const LatestCustomers: React.FC<ILatestCustomersProps> = ({
 										primary={item.name}
 										primaryTypographyProps={{
 											fontSize: '1.6rem',
-											fontWeight: 500,
+											fontWeight: 600,
 											color: theme.palette.secondary.main
 										}}
 										secondary={
 											<React.Fragment>
 												<M.Typography
+													display="inline-block"
+													variant="subtitle1"
 													component="span"
-													fontSize="1.2rem"
+													fontSize="1rem"
 													color={'#6B7280'}
 												>
 													{item.email}
@@ -69,17 +76,17 @@ const LatestCustomers: React.FC<ILatestCustomersProps> = ({
 										}
 									/>
 								</MS.Box>
-								<MS.Box>
+								<MS.Box component="div">
 									<M.ListItemText
 										primaryTypographyProps={{
-											fontSize: '1.6rem',
-											fontWeight: 500
+											fontSize: '1.4rem',
+											fontWeight: 600
 										}}
 										primary={`$${item.lastPurchaseValue}`}
 									/>
 								</MS.Box>
 							</MS.Box>
-							<M.Divider variant="fullWidth" component="li" />
+							<M.Divider variant="fullWidth" component="div" />
 						</S.ListItemCustom>
 					))}
 				</React.Fragment>
